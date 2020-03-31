@@ -1,19 +1,19 @@
-var mongoose = require('mongoose');
-var express = require('express');
-var bodyParser = require('body-parser');
+let mongoose = require('mongoose');
+let express = require('express');
+let bodyParser = require('body-parser');
 
-var produtosRouter = require('./routes/ProdutosRoute');
+let produtosRouter = require('./routes/ProductsRoute');
 
-var app = express();
+let app = express();
 
-var db = mongoose.connection;
+let db = mongoose.connection;
 
 const password = require('./password');
 const url = password;
 
 db.on('error', console.error);
-db.once('open', function() {
-  console.log('Conectado ao banco de dados produtosdb MongoDB.')
+db.once('open', () => {
+  console.log('Connected to the productsdb MongoDB database.');
 });
 
 mongoose.connect(url, {
@@ -21,10 +21,10 @@ mongoose.connect(url, {
   useUnifiedTopology: true
 });
 
-app.listen(5000, function () {
-  console.log('Servidor escutando na porta 5000');
+app.listen(5000, () => {
+  console.log('Server listening on port 5000');
 });
 
 app.use(bodyParser.json());
 
-app.use('/produtos', produtosRouter); 
+app.use('/products', produtosRouter);
